@@ -1,6 +1,7 @@
 package com.iamneo.security.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
@@ -18,8 +19,8 @@ public class Supplier {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "supplier")
-    @Cascade(CascadeType.ALL)
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY, cascade = jakarta.persistence.CascadeType.ALL)
+    // @Cascade(CascadeType.ALL)
     private List<Product> products;
 
     public Supplier() {
@@ -72,8 +73,8 @@ public class Supplier {
         this.products = products;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
-        product.setSupplier(this);
-    }
+    // public void addProduct(Product product) {
+    // products.add(product);
+    // product.setSupplier(this);
+    // }
 }

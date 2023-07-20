@@ -24,4 +24,7 @@ public class ProductService {
         return arr;
     }
 
+    public void delete(int id) {
+        repo.deleteById(id);
+    }
 }

@@ -2,17 +2,23 @@ package com.iamneo.security.entity;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
+
 @Table(name = "product")
 public class Product {
     @Id
+    @GeneratedValue
     private int id;
     private String name;
     private String d;
@@ -20,10 +26,22 @@ public class Product {
     private int price;
     private int quantity;
     private String image;
+    @JoinColumn(name = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = jakarta.persistence.CascadeType.ALL)
+    private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "supid")
-    @Cascade(CascadeType.ALL)
+    // Getter and setter for order
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    @JoinColumn(name = "supplier_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = jakarta.persistence.CascadeType.ALL)
+    // @Cascade(CascadeType.ALL)
     private Supplier supplier;
 
     public Product() {
